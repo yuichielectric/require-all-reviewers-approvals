@@ -6,7 +6,8 @@ OWNER=$1
 REPO=$2
 NUMBER=$3
 SHA=$4
-
+echo 'repos/${OWNER}/${REPO}/pulls/${NUMBER}/reviews'
+echo "repos/${OWNER}/${REPO}/pulls/${NUMBER}/reviews"
 NOT_APPROVED_REVIEWERS=$(gh api -X GET 'repos/${OWNER}/${REPO}/pulls/${NUMBER}/reviews' --jq '[.[] | select(.state != "APPROVED")] | length')
 REQUESTED_REVIEWERS=$(gh api -X GET 'repos/${OWNER}/${REPO}/pulls/${NUMBER}/requested_reviewers' --jq ".users | length")
 
