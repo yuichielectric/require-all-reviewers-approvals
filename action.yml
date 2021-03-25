@@ -3,7 +3,5 @@ description: 'Succeed if all the reviewers in the PR has approved, or fail'
 runs:
   using: "composite"
   steps:
-    - run: gh api -X GET 'repos/${{ github.event.repository.owner.login }}/${{ github.event.repository.name}}/pulls/${{ github.event.number }}/reviews' --jq ".[].state"
-      shell: bash
-    - run: echo $?
+    - run: ${{ github.action_path }}/reviewstatus.sh
       shell: bash
