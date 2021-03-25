@@ -10,7 +10,7 @@ SHA=$4
 NOT_APPROVED_REVIEWERS=$(gh api -X GET "repos/${OWNER}/${REPO}/pulls/${NUMBER}/reviews" --jq '[.[] | select(.state != "APPROVED")] | length')
 REQUESTED_REVIEWERS=$(gh api -X GET "repos/${OWNER}/${REPO}/pulls/${NUMBER}/requested_reviewers" --jq ".users | length")
 
-if [ ${NOT_APPROVED_REVIEWERS} -eq 0 ] && [ ${REQUESTED_REVIEWERS} -eq 0]; then
+if [ "${NOT_APPROVED_REVIEWERS}" -eq "0" ] && [ "${REQUESTED_REVIEWERS}" -eq "0" ]; then
   STATE="success"
 else
   STATE="failure"
