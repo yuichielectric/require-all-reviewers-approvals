@@ -5,3 +5,5 @@ runs:
   steps:
     - run: gh api -X GET 'repos/${{ github.event.repository.owner.login }}/${{ github.event.repository.name}}/pulls/${{ github.event.number }}/reviews' --jq ".[].state" | grep -v APPROVED | wc -l
       shell: bash
+    - run: echo $?
+      shell: bash
