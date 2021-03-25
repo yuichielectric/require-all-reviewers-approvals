@@ -1,0 +1,7 @@
+name: "Require all reviewers' approvals"
+description: 'Succeed if all the reviewers in the PR has approved, or fail'
+runs:
+  using: "composite"
+  steps:
+    - run: gh api -X GET 'repos/${{ github.event.organization.login }}/${{ github.event.repository.name}}/pulls/${{ github.event.number }}/reviews' --jq ".[].state" | grep -v APPROVED | wc -l
+      shell: bash
