@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 OWNER=$1
 REPO=$2
 NUMBER=$3
