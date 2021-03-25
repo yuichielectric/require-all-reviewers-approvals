@@ -3,5 +3,5 @@ description: 'Succeed if all the reviewers in the PR has approved, or fail'
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/reviewstatus.sh
+    - run: ${{ github.action_path }}/reviewstatus.sh ${{ github.event.repository.owner}} ${{ github.event.repository.name }} ${{ github.event.number}} ${{ github.sha }}
       shell: bash
