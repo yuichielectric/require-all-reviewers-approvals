@@ -1,9 +1,13 @@
 name: "Require all reviewers' approvals"
 description: 'Succeed if all the reviewers in the PR has approved, or fail'
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN'
+    default: '${{ github.token }}'
 runs:
   using: "composite"
   steps:
     - run: ${{ github.action_path }}/reviewstatus.sh ${{ github.event.repository.owner}} ${{ github.event.repository.name }} ${{ github.event.number}} ${{ github.sha }}
       shell: bash
       env:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
