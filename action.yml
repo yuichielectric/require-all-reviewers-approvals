@@ -5,3 +5,5 @@ runs:
   steps:
     - run: ${{ github.action_path }}/reviewstatus.sh ${{ github.event.repository.owner}} ${{ github.event.repository.name }} ${{ github.event.number}} ${{ github.sha }}
       shell: bash
+      env:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
