@@ -13,5 +13,5 @@ runs:
         OWNER: ${{ github.event.repository.owner.login }}
         REPO: ${{ github.event.repository.name }}
         PR_NUMBER: ${{ github.event.number}}
-        STATUS_SHA: ${{ github.sha }}
+        STATUS_SHA: ${{ github.event.pull_request.head.sha }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
