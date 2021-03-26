@@ -11,4 +11,4 @@ else
   STATE="failure"
 fi
 
-gh api -X POST "/repos/${OWNER}/${REPO}/statuses/${STATUS_SHA}" -f state=${STATE} context="Require all reviewers' approvals"
+gh api -X POST "/repos/${OWNER}/${REPO}/statuses/${STATUS_SHA}" -f state=${STATE} -f context="Require all reviewers' approvals"
