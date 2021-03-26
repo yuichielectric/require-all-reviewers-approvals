@@ -7,7 +7,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/reviewstatus.sh ${{ github.event.repository.owner.login }} ${{ github.event.repository.name }} ${{ github.event.number}} ${{ github.sha }}
+    - run: ${{ github.action_path }}/reviewstatus.sh
       shell: bash
       env:
+        OWNER: ${{ github.event.repository.owner.login }}
+        REPO: ${{ github.event.repository.name }}
+        PR_NUMBER: ${{ github.event.number}}
+        STATUS_SHA: ${{ github.sha }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
