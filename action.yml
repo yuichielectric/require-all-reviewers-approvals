@@ -12,6 +12,6 @@ runs:
       env:
         OWNER: ${{ github.event.repository.owner.login }}
         REPO: ${{ github.event.repository.name }}
-        PR_NUMBER: ${{ github.event.number}}
+        PR_NUMBER: ${{ github.event.pull_request.number}}
         STATUS_SHA: ${{ github.event.pull_request.head.sha }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
