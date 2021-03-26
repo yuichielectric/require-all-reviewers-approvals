@@ -1,7 +1,17 @@
 name: "Require all reviewers' approvals"
 description: 'Succeed if all the reviewers in the PR has approved, or fail'
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN'
+    default: '${{ github.token }}'
 runs:
   using: "composite"
   steps:
-    - run: gh api -X GET 'repos/${{ github.event.repository.owner.login }}/${{ github.event.repository.name}}/pulls/${{ github.event.number }}/reviews' --jq ".[].state" | grep -v APPROVED | wc -l
+    - run: ${{ github.action_path }}/reviewstatus.sh
       shell: bash
+      env:
+        OWNER: ${{ github.event.repository.owner.login }}
+        REPO: ${{ github.event.repository.name }}
+        PR_NUMBER: ${{ github.event.number}}
+        STATUS_SHA: ${{ github.event.pull_request.head.sha }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
