@@ -4,6 +4,7 @@ inputs:
   github_token:
     description: 'GITHUB_TOKEN'
     default: '${{ github.token }}'
+    required: false
   required_reviewers:
     description: 'List of required reviewers (comma separated)'
     required: true
@@ -19,3 +20,4 @@ runs:
         STATUS_SHA: ${{ github.event.pull_request.head.sha }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
         REQUIRED_REVIEWERS: ${{ inputs.required_reviewers }}
+
