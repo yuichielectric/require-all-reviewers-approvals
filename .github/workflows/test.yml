@@ -11,6 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run
       uses: yuichielectric/require-all-reviewers-approvals@main
+      with:
+        required_reviewers: 'yuichielectric,yuichielectric-demo'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        REQUIRED_REVIEWERS: 'yuichielectric,yuichielectric-demo'
