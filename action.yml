@@ -4,6 +4,9 @@ inputs:
   github_token:
     description: 'GITHUB_TOKEN'
     default: '${{ github.token }}'
+  required_reviewers:
+    description: 'List of required reviewers (comma separated)'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -12,6 +15,7 @@ runs:
       env:
         OWNER: ${{ github.event.repository.owner.login }}
         REPO: ${{ github.event.repository.name }}
-        PR_NUMBER: ${{ github.event.number}}
+        PR_NUMBER: ${{ github.event.pull_request.number}}
         STATUS_SHA: ${{ github.event.pull_request.head.sha }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
+        REQUIRED_REVIEWERS: ${{ inputs.required_reviewers }}

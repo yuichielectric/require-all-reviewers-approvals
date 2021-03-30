@@ -13,3 +13,4 @@ jobs:
       uses: yuichielectric/require-all-reviewers-approvals@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REQUIRED_REVIEWERS: 'yuichielectric,yuichielectric-demo'

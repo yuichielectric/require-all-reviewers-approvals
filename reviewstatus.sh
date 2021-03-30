@@ -2,13 +2,14 @@
 
 set -x
 
-NOT_APPROVED_REVIEWERS=$(gh api -X GET "repos/${OWNER}/${REPO}/pulls/${PR_NUMBER}/reviews" --jq '[.[] | select(.state != "APPROVED")] | length')
-REQUESTED_REVIEWERS=$(gh api -X GET "repos/${OWNER}/${REPO}/pulls/${PR_NUMBER}/requested_reviewers" --jq ".users | length")
+STATE="success"
+REVIEWERS="(${REQUESTED_REVIEWERS//,/ })"
+for reviewer in "${REVIEWERS[@]}"; do
+  REVIEWED=$(gh api -X GET "repos/${OWNER}/${REPO}/pulls/${PR_NUMBER}/reviews" --jq "[.[] | select(.state == 'APPROVED' and .user.login == \"$reviewer\")] | length")
+  if [ "$REVIEWED" -ne 0 ];
+  then
+    STATE="failure"
+  fi
+done
 
-if [ "${NOT_APPROVED_REVIEWERS}" -eq "0" ] && [ "${REQUESTED_REVIEWERS}" -eq "0" ]; then
-  STATE="success"
-else
-  STATE="failure"
-fi
-
-gh api -X POST "/repos/${OWNER}/${REPO}/statuses/${STATUS_SHA}" -f state=${STATE} -f context="Require all reviewers' approvals"
+gh api -X POST "/repos/${OWNER}/${REPO}/statuses/${STATUS_SHA}" -f state=${STATE} -f context="Have all reviewers approved?"
