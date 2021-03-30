@@ -7,12 +7,12 @@ STATE="success"
 read -ra REVIEWERS <<< "${REQUIRED_REVIEWERS}"
 NEED_REVIEW_BY=()
 for reviewer in "${REVIEWERS[@]}"; do
-  if [ "${reviewer}" -eq "${PR_OWNER}" ]; then
+  if [ "${reviewer}" = "${PR_OWNER}" ]; then
     continue
   fi
 
   REVIEWED=$(gh api -X GET "repos/${OWNER}/${REPO}/pulls/${PR_NUMBER}/reviews" --jq "[.[] | select(.state == \"APPROVED\" and .user.login == \"$reviewer\")] | length")
-  if [ "$REVIEWED" -eq 0 ];
+  if [ "$REVIEWED" -eq "0" ];
   then
     STATE="failure"
     NEED_REVIEW_BY+=("${reviewer}")
